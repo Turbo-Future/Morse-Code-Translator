@@ -14,53 +14,18 @@ ttm_dict = { 'a':'.-', 'b':'-...',
                     '?':'..--..', '/':'-..-.', '-':'-....-', 
                     '(':'-.--.', ')':'-.--.-'}
 
-mtt_dict = {'-.--.-':')' ,'.--.-':'('                    
- ,'-....-':'-' ,'.-..-':'/' ,'..--..':'?'                    
- ,'-.-.-.':'.' ,'--..--':' ,' ,'-----':'0'                    
- ,'.----':'9' ,'..---':'8' ,'...--':'7'                    
- ,'....-':'6' ,'.....':'5' ,'-....':'4'                    
- ,'--...':'3' ,'---..':'2' ,'----.':'1'                    
- ,'..--':'z' ,'--.-':'y' ,'-..-':'x'                    
- ,'--.':'w' ,'-...':'v' ,'-..':'u'                    
- ,'-':'t' ,'...':'s' ,'.-.':'r'                    
- ,'-.--':'q' ,'.--.':'p' ,'---':'o'                    
- ,'.-':'n' ,'--':'m' ,'..-.':'l'                    
- ,'-.-':'k' ,'---.':'j' ,'..':'i'                    
- ,'....':'h' ,'.--':'g' ,'.-..':'f'                    
- ,'.':'e' ,'..-':'d' ,'.-.-':'c'                    
- ,'...-':'b' ,'-.':'a'
-}
+mtt_dict = {v:k for k,v in ttm_dict.items()}
 question = input("Text to Morse or Morse to Text\nPlease type ttm for text to morse or type mtt for morse to text.\n")
-
-#Text to Morse
 if question == "ttm":
   encrypt_q = input("What would you like have be translated to Morse Code\n")
-  encrypt = encrypt_q.lower()
-  morse = "" 
-  for letter in encrypt: 
-    encrypt.lower()
-    if letter != ' ': 
+  # ' ' (single space, char separator
+  # '  ' (double space) word separator
+  morse = '  '.join([ ' '.join([ttm_dict[c] for c in word]) for word in encrypt_q.lower().split(' ')])
+  print(morse)
 
-            morse += ttm_dict[letter] + ' '
-    else: 
-
-            morse += ' '
-  print(morse) 
-  #Morse to Text
 elif question == "mtt":
   decrypt = input("What would you like to have be translated to English?\n")
-  lenword = len(decrypt)
-  words = ''
-  for i in decrypt:
-    if i != ' ':
-        words=words+i
-        if i not in mtt_dict:
-            print('Data not formatted properly')
-            break
-    else:
-        print(mtt_dict[words], end="")
-        words = ''
+  print(' '.join([''.join([mtt_dict[c] for c in word.split(' ')]) for word in decrypt.split('  ')]))
 
-    #If they are cannot read
 else:
   print("Invalid option")
